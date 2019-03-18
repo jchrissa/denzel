@@ -14,6 +14,10 @@ Another 82 wins & 166 nominations
 
 ---
 
+📽️ 56 movies
+
+---
+
 🎯 Build a REST and GRAPHQL API to get the must-watch Denzel's movies
 
 ---
@@ -76,7 +80,7 @@ Either with a container Docker
 
 ---
 
-🔗 Endpoints
+🔗 REST Endpoints
 
 ---
 
@@ -126,7 +130,16 @@ Save a watched date and a review
 
 ---
 
-REST and GraphQL
+🔗 GraphQL Endpoints
+
+---
+
+GET `/graphql`
+POST `/graphql`
+
+---
+
+Same definitions as REST API
 
 ---
 
