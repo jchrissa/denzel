@@ -11,7 +11,7 @@ if (result.error) {
   throw result.error;
 }
 
-const CONNECTION_URL =  "mongodb+srv://jchrissa1:Jocelyn@1955@cluster0-q3wis.mongodb.net/test?retryWrites=true";
+const CONNECTION_URL =  "mongodb+srv://"+process.env.USER+ process.env.PASS+"@cluster0-q3wis.mongodb.net/test?retryWrites=true";
 const DATABASE_NAME = "film";
 
 var app = Express();
@@ -103,26 +103,6 @@ app.get("/movies/:id", (request, response) => {
         response.send(result);
     });
 });
-//POST /movies/:id
-/*
-app.post("/movies/:id", (request, response) => {
-  let selector = {
-    "id": request.params.id
-  };
-  let document = {
-    $set: request.body
-  };
-  let options = {
-    "upsert": true
-  };
-  collection.updateMany(selector, document, options, (error, result) => {
-    if (error) {
-      return response.status(500).send(error);
-    }
-    response.send(result)
-  })
-})
-*/
 
 app.post("/movies/:id", (request, response) => {
     var date = request.body.date;
