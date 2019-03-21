@@ -3,6 +3,7 @@ const BodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
 const imdb = require('./src/imdb');
+var cors = require('cors');
 const DENZEL_IMDB_ID = 'nm0000243';
 const dotenv = require('dotenv');
 
@@ -15,10 +16,10 @@ const CONNECTION_URL =  "mongodb+srv://"+process.env.USER+ process.env.PASS+"@cl
 const DATABASE_NAME = "film";
 
 var app = Express();
-
+app.use(cors());
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
-
+ 
 var database, collection;
 
 app.listen(9292, () => {
@@ -35,6 +36,7 @@ app.listen(9292, () => {
 
 async function populateDB(IDactor) {
   try {
+    
     console.log(`Fetching movies from Denzel  ${IDactor}...`);
     return await imdb(IDactor);
   } catch (e) {
@@ -43,8 +45,8 @@ async function populateDB(IDactor) {
 }
 
 
-//GET /movies/populate
 app.get("/movies/populate", async (request, response) => {
+  collection.drop();
   const movies = await populateDB(DENZEL_IMDB_ID);
   collection.insertMany(movies, (error, result) => {
     if (error) {
@@ -56,19 +58,18 @@ app.get("/movies/populate", async (request, response) => {
   })
 })
 
-//GET /movies
 app.get("/movies", async (request, response) => {
 
-    collection.find({metascore:{$gte:70}}).toArray((error, result) => {   //greater than 70
+    collection.find({metascore:{$gte:70}}).toArray((error, result) => { 
         if(error) {
             return response.status(500).send(error);
         }
-        const index = Math.floor(Math.random() * Math.floor(result.length)); //get random Int
+        const index = Math.floor(Math.random() * Math.floor(result.length)); 
         result = result[index];
         response.send(result);
     });
 });
-//GET /movies/search
+
 app.get("/movies/search", (request, response) => {
   let query = {
     "metascore": {
@@ -93,7 +94,7 @@ app.get("/movies/search", (request, response) => {
   })
 })
 
-//GET /movies/:id
+
 app.get("/movies/:id", (request, response) => {
 
     collection.findOne({"id": request.params.id}, (error, result) => {
@@ -113,7 +114,7 @@ app.post("/movies/:id", (request, response) => {
             return response.status(500).send(error);
         }
         response.send(result.result);
-        console.log("Added new review");
+        console.log("we Added the new review");
     });
 });
 

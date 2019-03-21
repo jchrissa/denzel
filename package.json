@@ -5,13 +5,18 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
+    "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
-     "nodemon": "^1.18.10",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "graphql-tools": "^4.0.4",
     "mongodb": "^3.1.13",
     "node-fetch": "^2.3.0",
+    "nodemon": "^1.18.10",
     "p-limit": "^2.2.0",
-    "p-settle": "^2.1.0"
+    "p-settle": "^2.1.0",
+    "react-background-image": "^1.2.0"
   },
   "main": "sandbox.js",
   "scripts": {
